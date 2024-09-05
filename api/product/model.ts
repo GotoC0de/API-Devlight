@@ -17,11 +17,11 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: "Category",
-    required: true,
-  },
+  // category: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Category",
+  //   required: true,
+  // },
   image: {
     type: String,
     default: "",

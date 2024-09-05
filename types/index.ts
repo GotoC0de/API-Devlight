@@ -11,7 +11,7 @@ export interface IUser {
   avatar: string | undefined;
 }
 
-export interface IProducto {
+export interface IProduct {
   _id: string | undefined;
   name: string;
   description: string;
