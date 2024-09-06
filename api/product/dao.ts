@@ -12,14 +12,23 @@ class ProductDao {
     limit: string
   ) {
     try {
+      const formatedData = {
+        category: category ? category : undefined,
+        salersId: salersId ? salersId : undefined,
+        price:
+          priceStart && priceEnd
+            ? { $gte: priceStart, $lte: priceEnd }
+            : undefined,
+      };
+      /**
+       * @param limit => Cantidad páginas que vaya a omitirse
+       * @param page => La página que se desea mostrar
+       */
+      //Ejmp -> (1-1) * 10 = 0 - Trae los primeros 10 productos
+      //Ejmp2 -> (2-1) * 10 = 10 - Omite los primeros 10 y retorna los siguientes 10 (Del 11 al 20)
       const skip = (Number(page) - 1) * Number(limit);
-      const products = await Product.find({
-        ...(category ? { category } : {}),
-        ...(salersId ? { salersId } : {}),
-        ...(priceStart && priceEnd
-          ? { price: { $gte: priceStart, $lte: priceEnd } }
-          : {}),
-      })
+      const products = await Product.find(formatedData)
+        //Evalua si la expresión sort && {price_sort} es true (No es undefined), en tal caso se ejecuta la aplicación de ordenación en el campo price con el valor de sort (auxilio, llevo más de 8 horas sentado :c)
         .sort(sort && { price: sort })
         .skip(skip)
         .limit(Number(limit));
