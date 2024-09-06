@@ -28,6 +28,7 @@ class UserService {
   async getUsers() {
     try {
       const user = await getAllUsers();
+      return user;
     } catch (error) {
       throw Error((error as Error).message);
     }
